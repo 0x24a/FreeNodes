@@ -1,0 +1,40 @@
+name: Update Proxies
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Check for changes
+      id: check
+      run: |
+        git diff --quiet || echo "::set-output name=changed::true"
+      continue-on-error: true
+
+    - name: Run main.py
+      run: python main.py
+
+    - name: Commit and push if changed
+      if: steps.check.outputs.changed
+      run: |
+        git config --global user.name 'Actions'
+        git config --global user.email 'admin@thz.cool'
+        git commit -am 'Update proxies'
+        git push
