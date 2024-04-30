@@ -33,3 +33,4 @@ jobs:
         git add .
         git commit -am 'Update proxies'
         git push
+      continue-on-error: true
