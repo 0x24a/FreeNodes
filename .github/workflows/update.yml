@@ -23,14 +23,14 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+    - name: Run main.py
+      run: python main.py
+      
     - name: Check for changes
       id: check
       run: |
         git diff --quiet || echo "::set-output name=changed::true"
       continue-on-error: true
-
-    - name: Run main.py
-      run: python main.py
 
     - name: Commit and push if changed
       if: steps.check.outputs.changed
