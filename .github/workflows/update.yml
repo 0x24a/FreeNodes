@@ -25,17 +25,11 @@ jobs:
 
     - name: Run main.py
       run: python main.py
-      
-    - name: Check for changes
-      id: check
-      run: |
-        git diff --quiet || echo "::set-output name=changed::true"
-      continue-on-error: true
 
     - name: Commit and push if changed
-      if: steps.check.outputs.changed
       run: |
         git config --global user.name 'Actions'
         git config --global user.email 'admin@thz.cool'
+        git add .
         git commit -am 'Update proxies'
         git push
