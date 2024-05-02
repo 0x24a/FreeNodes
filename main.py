@@ -14,8 +14,12 @@ for provider_name, fetch in PROVIDERS.items():
     except:
         print("- - Failed, ignoring.")
 print(" - Merging nodes")
-
+number_before = len(proxies)
+print(" - Removing repeated proxies")
+proxies=list(set(proxies))
+print(f" - Number: {number_before} -> {len(proxies)}")
 result = b64encode(("\n".join(proxies)).encode("utf-8")).decode()
+print(" - Writing...")
 with open("sub.txt", "w+") as f:
     f.write(result)
 print("Done!")
