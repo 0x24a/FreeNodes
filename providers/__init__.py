@@ -4,6 +4,7 @@ from providers.pawdroid import fetch as pawdroid
 from providers.free18 import fetch as free18
 from providers.aiboboxx import fetch as aiboboxx
 from providers.hkpc import fetch as hkpc
+from providers.epodonios import fetch as epodonios
 
 PROVIDERS={
     "ChromeGo": chromego,
@@ -11,5 +12,6 @@ PROVIDERS={
     "Pawdroid/Free-servers": pawdroid,
     "free18/v2ray": free18,
     "aiboboxx": aiboboxx,
-    "hkpc/V2ray-Configs": hkpc
+    "hkpc/V2ray-Configs": hkpc,
+    "Epodonios/v2ray-configs": epodonios
 }
