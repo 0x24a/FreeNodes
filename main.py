@@ -1,5 +1,6 @@
 from providers import PROVIDERS
 from base64 import b64encode
+import string
 
 print("Fetching proxies from", len(PROVIDERS.keys()), "providers")
 
@@ -31,7 +32,14 @@ print(" - - Main sub")
 with open("subs/main.txt", "w+") as f:
     f.write(result)
 for protocol in protocols.items():
-    if not protocol[0] or len(protocol[0]) > 24:
+    vaild=True
+    for i in protocol[0]:
+        if i not in string.digits + string.ascii_letters:
+            vaild=False
+            break
+    if not vaild:
+        continue
+    if not protocol[0] or len(protocol[0]) > 24 or " " in protocol[0]:
         continue
     print(f" - - {protocol[0].upper()}")
     result = b64encode(("\n".join(protocol[1])).encode("utf-8")).decode()
